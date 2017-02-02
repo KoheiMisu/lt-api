@@ -6,7 +6,15 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: ja_jp
+
+    slack_channel: '#lt-api-test'
+    webhook_url: https://hooks.slack.com/services/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
+    slack_name: testApi
+    outgoing_token: xxxxx
+
+    # 週に何人を発表者として選出するか
+    presenter_per_week: 2
 
 framework:
     #esi:             ~
@@ -64,3 +72,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# FOSRestBundle
+fos_rest:
+    view:
+        view_response_listener: force

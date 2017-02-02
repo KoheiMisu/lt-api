@@ -1,3 +1,12 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+app_post:
+    resource: "@AppBundle/Controller/PostController.php"
+    type: rest
+app_schedule:
+    resource: "@AppBundle/Controller/ScheduleController.php"
+    type: rest
+app_presenter:
+    resource: "@AppBundle/Controller/PresenterController.php"
+    type: rest

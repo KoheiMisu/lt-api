@@ -7,3 +7,28 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    slack:
+        class: AppBundle\Services\Slack
+        arguments: ["%slack_name%", "%slack_channel%", "%webhook_url%"]
+
+    schedule_notifier:
+        class: AppBundle\Services\ScheduleNotifier
+        arguments: ["@slack"]
+
+    schedule_creator:
+        class: AppBundle\Services\ScheduleCreator
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    schedule_manager:
+        class: AppBundle\Services\ScheduleManager
+        arguments: ["@schedule_creator", "@schedule_notifier"]
+
+    schedule_repository:
+        class: AppBundle\Repository\ScheduleRepository
+        factory: 'doctrine.orm.entity_manager:getRepository'
+        arguments: ['AppBundle:Schedule']
+
+    presenter_repository:
+        class: AppBundle\Repository\PresenterRepository
+        factory: 'doctrine.orm.entity_manager:getRepository'
+        arguments: ['AppBundle:Presenter']
