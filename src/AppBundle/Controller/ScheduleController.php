@@ -21,7 +21,8 @@ class ScheduleController extends BaseRestController implements ClassResourceInte
      */
     public function postCancelAction(Request $request)
     {
-        $this->get('schedule_manager')->cancel();
+        $this->get('slack')->send('hello cancel bot');
+//        $this->get('schedule_manager')->cancel();
     }
 
     /**
