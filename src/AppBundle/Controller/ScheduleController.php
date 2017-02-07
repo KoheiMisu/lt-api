@@ -6,7 +6,7 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\Support\SlackWebhookTokenAuthenticated;
 
-class ScheduleController extends BaseRestController implements ClassResourceInterface,SlackWebhookTokenAuthenticated
+class ScheduleController extends BaseRestController implements SlackWebhookTokenAuthenticated
 {
 
     /**
@@ -14,7 +14,8 @@ class ScheduleController extends BaseRestController implements ClassResourceInte
      */
     public function postCancelAction(Request $request)
     {
-        $this->get('schedule_manager')->cancel();
+        $logic = $this->get('schedule_cancel_logic')->setRequest($request);
+        $this->get('schedule_manager')->scheduleChange($logic);
     }
 
     /**
@@ -22,7 +23,8 @@ class ScheduleController extends BaseRestController implements ClassResourceInte
      */
     public function postPostponeAction(Request $request)
     {
-        $this->get('schedule_manager')->postpone();
+        $logic = $this->get('schedule_postpone_logic')->setRequest($request);
+        $this->get('schedule_manager')->scheduleChange($logic);
     }
 
     /**
@@ -30,6 +32,7 @@ class ScheduleController extends BaseRestController implements ClassResourceInte
      */
     public function postSkipAction(Request $request)
     {
-        $this->get('schedule_manager')->skip();
+        $logic = $this->get('schedule_skip_logic')->setRequest($request);
+        $this->get('schedule_manager')->scheduleChange($logic);
     }
 }

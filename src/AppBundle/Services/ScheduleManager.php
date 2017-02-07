@@ -5,6 +5,7 @@ namespace AppBundle\Services;
 use AppBundle\Services\ScheduleCreator;
 use AppBundle\Services\ScheduleNotifier;
 use JMS\DiExtraBundle\Annotation as DI;
+use AppBundle\Services\Support\LogicExecute;
 
 /**
  * @DI\Service("schedule_manager")
@@ -37,26 +38,9 @@ class ScheduleManager
         $this->scheduleNotifier = $scheduleNotifier;
     }
 
-    /**
-     * 今週のltをキャンセルする場合
-     */
-    public function cancel()
+    public function scheduleChange(LogicExecute $logic)
     {
-    }
-
-    /**
-     * 部会等がなくなり、ltが開催されない場合
-     */
-    public function postpone()
-    {
-    }
-
-    /**
-     * 忙しくてlt自体を次の人にパスする場合
-     * または、飛び込みでやって自分の発表を一周ずらす場合
-     */
-    public function skip()
-    {
+        $logic->execute();
     }
 
     /**

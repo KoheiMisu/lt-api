@@ -3,8 +3,9 @@
 namespace AppBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Routing\ClassResourceInterface;
 
-class BaseRestController extends FOSRestController
+class BaseRestController extends FOSRestController implements ClassResourceInterface
 {
     /**
      * @return \Doctrine\Common\Persistence\ObjectManager|object
