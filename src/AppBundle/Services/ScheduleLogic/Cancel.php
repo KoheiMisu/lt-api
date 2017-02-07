@@ -15,8 +15,16 @@ use AppBundle\Services\Support\LogicExecute;
  */
 class Cancel extends BaseLogic implements LogicExecute
 {
+    /**
+     * @return void
+     */
     public function execute()
     {
-        $cancelPresenter = $this->em->getRepository('AppBundle:Presenter');
+        $cancelPresenter = $this->em->getRepository('AppBundle:Presenter')->findOneByName($this->request->get('user_name'));
+        $targetSchedule = $this->em->getRepository('AppBundle:Schedule')->findLatestByPresenter($cancelPresenter);
+
+        $targetSchedule->setStatus(0);
+        $this->em->persist($targetSchedule);
+        $this->em->flush();
     }
 }

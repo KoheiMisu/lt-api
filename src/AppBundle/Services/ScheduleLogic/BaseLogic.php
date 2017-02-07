@@ -42,6 +42,7 @@ class BaseLogic
      */
     public function setRequest(Request $request)
     {
+        $this->request = $request;
         return $this;
     }
 }
