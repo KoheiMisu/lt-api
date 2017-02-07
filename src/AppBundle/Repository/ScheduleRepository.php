@@ -23,7 +23,7 @@ class ScheduleRepository extends \Doctrine\ORM\EntityRepository
             ->where('s.status = :status')
             ->andWhere('s.publishDate = :publishDate')
             ->setParameter('status', 2)
-            ->setParameter('publishDate', new Carbon('last friday'))
+            ->setParameter('publishDate', new Carbon('this friday'))
             ->getQuery();
 
         return $qb->getResult();

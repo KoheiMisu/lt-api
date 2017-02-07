@@ -83,6 +83,13 @@ class ScheduleCreator
         $postpones = $this->em->getRepository('AppBundle:Schedule')->findPostpone();
         if ($postpones) {
             $this->setNextWeekSchedules($postpones);
+            //scheduleをreadyに戻し、発表日を翌週に更新
+            foreach ($postpones as $schedule) {
+                $schedule->setStatus(1);
+                $schedule->setPublishDate(new Carbon('next friday'));
+                $this->em->persist($schedule);
+                $this->em->flush();
+            }
         }
     }
 
