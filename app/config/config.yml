@@ -8,11 +8,6 @@ imports:
 parameters:
     locale: ja_jp
 
-    slack_channel: '#lt-api-test'
-    webhook_url: https://hooks.slack.com/services/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
-    slack_name: testApi
-    outgoing_token: xxxxx
-
     # 週に何人を発表者として選出するか
     presenter_per_week: 2
 
@@ -77,3 +72,12 @@ swiftmailer:
 fos_rest:
     view:
         view_response_listener: force
+
+# JMSDiExtraBundle
+jms_di_extra:
+    locations:
+        all_bundles: false
+        bundles: [AppBundle]
+        directories: ["%kernel.root_dir%/../src"]
+    disable_grep: true
+    doctrine_integration: false

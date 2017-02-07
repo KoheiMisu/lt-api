@@ -4,25 +4,17 @@ namespace AppBundle\Controller;
 
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Controller\Support\SlackWebhookTokenAuthenticated;
 
-class ScheduleController extends BaseRestController implements ClassResourceInterface
+class ScheduleController extends BaseRestController implements ClassResourceInterface,SlackWebhookTokenAuthenticated
 {
-    /**
-     *
-     */
-    public function cgetAction()
-    {
-        //次週のスケジュール作成をしてから通知
-        $this->get('schedule_manager')->notice();
-    }
 
     /**
      * @param Request $request
      */
     public function postCancelAction(Request $request)
     {
-        $this->get('slack')->send('hello cancel bot');
-//        $this->get('schedule_manager')->cancel();
+        $this->get('schedule_manager')->cancel();
     }
 
     /**
@@ -31,5 +23,13 @@ class ScheduleController extends BaseRestController implements ClassResourceInte
     public function postPostponeAction(Request $request)
     {
         $this->get('schedule_manager')->postpone();
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function postSkipAction(Request $request)
+    {
+        $this->get('schedule_manager')->skip();
     }
 }

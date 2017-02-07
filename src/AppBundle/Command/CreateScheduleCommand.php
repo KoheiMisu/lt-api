@@ -5,7 +5,6 @@ namespace AppBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * 次週のスケジュールを作成して通知を行う
@@ -13,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Class CreateSchedule
  * @package AppBundle\Command
  */
-class CreateSchedule extends ContainerAwareCommand
+class CreateScheduleCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
@@ -22,6 +21,12 @@ class CreateSchedule extends ContainerAwareCommand
             ->setDescription('Create NextWeekSchedule And Notice Presenter');
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         //次週のスケジュール作成をしてから通知

@@ -3,7 +3,11 @@
 namespace AppBundle\Services;
 
 use Maknz\Slack\Client;
+use JMS\DiExtraBundle\Annotation as DI;
 
+/**
+ * @DI\Service("slack")
+ */
 class Slack
 {
     /** @var Client  */
@@ -11,6 +15,12 @@ class Slack
 
     /**
      * Slack constructor.
+     *
+     * @DI\InjectParams({
+     *     @DI\Inject("%slack_name%"),
+     *     @DI\Inject("%slack_channel%"),
+     *     @DI\Inject("%webhook_url%")
+     * })
      *
      * @param string $slackName
      * @param string $slackChannel

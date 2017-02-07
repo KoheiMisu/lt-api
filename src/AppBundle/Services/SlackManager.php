@@ -3,7 +3,12 @@
 namespace AppBundle\Services;
 
 use Maknz\Slack\Client;
+use JMS\DiExtraBundle\Annotation as DI;
 
+/**
+ * Class SlackManager
+ * @package AppBundle\Services
+ */
 class SlackManager
 {
     /** @var Client  */

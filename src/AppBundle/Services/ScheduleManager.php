@@ -4,7 +4,11 @@ namespace AppBundle\Services;
 
 use AppBundle\Services\ScheduleCreator;
 use AppBundle\Services\ScheduleNotifier;
+use JMS\DiExtraBundle\Annotation as DI;
 
+/**
+ * @DI\Service("schedule_manager")
+ */
 class ScheduleManager
 {
     /** @var ScheduleCreator */
@@ -15,6 +19,11 @@ class ScheduleManager
 
     /**
      * ScheduleManager constructor.
+     *
+     * @DI\InjectParams({
+     *     "scheduleCreator" = @DI\Inject("schedule_creator"),
+     *     "scheduleNotifier" = @DI\Inject("schedule_notifier")
+     * })
      *
      * @param \AppBundle\Services\ScheduleCreator  $scheduleCreator
      * @param \AppBundle\Services\ScheduleNotifier $scheduleNotifier
@@ -28,14 +37,26 @@ class ScheduleManager
         $this->scheduleNotifier = $scheduleNotifier;
     }
 
+    /**
+     * 今週のltをキャンセルする場合
+     */
     public function cancel()
     {
-
     }
 
+    /**
+     * 部会等がなくなり、ltが開催されない場合
+     */
     public function postpone()
     {
+    }
 
+    /**
+     * 忙しくてlt自体を次の人にパスする場合
+     * または、飛び込みでやって自分の発表を一周ずらす場合
+     */
+    public function skip()
+    {
     }
 
     /**
