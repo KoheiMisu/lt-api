@@ -23,6 +23,11 @@ class Cancel extends BaseLogic implements LogicExecute
         $cancelPresenter = $this->em->getRepository('AppBundle:Presenter')->findOneByName($this->getSlackUserName());
         $targetSchedule = $this->em->getRepository('AppBundle:Schedule')->findLatestByPresenter($cancelPresenter);
 
+        if (!$targetSchedule) {
+            $this->response('今週のLTを担当されていません。');
+            return;
+        }
+
         $targetSchedule->setStatus(0);
         $this->em->persist($targetSchedule);
         $this->em->flush();

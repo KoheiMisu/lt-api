@@ -19,6 +19,11 @@ class Skip extends BaseLogic implements LogicExecute
         $skipPresenter = $this->em->getRepository('AppBundle:Presenter')->findOneByName($this->getSlackUserName());
         $targetSchedule = $this->em->getRepository('AppBundle:Schedule')->findLatestByPresenter($skipPresenter);
 
+        if (!$targetSchedule) {
+            $this->response('今週のLTを担当されていません。');
+            return;
+        }
+
         /** スケジュールの削除 */
         $this->em->remove($targetSchedule);
         $this->em->flush();
