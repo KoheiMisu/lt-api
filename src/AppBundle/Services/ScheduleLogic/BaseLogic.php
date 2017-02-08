@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\HttpFoundation\Request;
 
-class BaseLogic
+abstract class BaseLogic
 {
     /** @var EntityManager  */
     protected $em;
@@ -32,6 +32,8 @@ class BaseLogic
         $this->em = $entityManager;
         $this->container = $container;
     }
+
+    abstract public function execute();
 
     /**
      * @param string $message

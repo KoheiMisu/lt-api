@@ -4,7 +4,6 @@ namespace AppBundle\Services\ScheduleLogic;
 
 use Carbon\Carbon;
 use JMS\DiExtraBundle\Annotation as DI;
-use AppBundle\Services\Support\LogicExecute;
 
 /**
  * 忙しくてlt自体を次の人にパスする場合
@@ -12,7 +11,7 @@ use AppBundle\Services\Support\LogicExecute;
  *
  * @DI\Service("schedule_skip_logic")
  */
-class Skip extends BaseLogic implements LogicExecute
+class Skip extends BaseLogic
 {
     public function execute()
     {
