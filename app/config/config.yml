@@ -10,6 +10,7 @@ parameters:
 
     # 週に何人を発表者として選出するか
     presenter_per_week: 2
+    help_content_file: "%kernel.root_dir%/../help.md"
 
 framework:
     #esi:             ~

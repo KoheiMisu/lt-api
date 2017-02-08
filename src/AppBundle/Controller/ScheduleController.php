@@ -2,12 +2,24 @@
 
 namespace AppBundle\Controller;
 
-use FOS\RestBundle\Routing\ClassResourceInterface;
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Services\Slack;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use AppBundle\Controller\Support\SlackWebhookTokenAuthenticated;
+use JMS\DiExtraBundle\Annotation as DI;
 
 class ScheduleController extends BaseRestController implements SlackWebhookTokenAuthenticated
 {
+    /**
+     * @var Slack
+     * @DI\Inject("slack")
+     */
+    private $slack;
+
+    public function postHelpAction()
+    {
+        $this->slack->send(file_get_contents($this->container->getParameter('help_content_file')));
+    }
 
     public function postCancelAction()
     {
