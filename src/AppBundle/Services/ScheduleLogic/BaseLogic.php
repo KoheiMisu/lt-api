@@ -15,9 +15,6 @@ class BaseLogic
     /** @var Container  */
     protected $container;
 
-    /** @var  Request */
-    protected $request;
-
     /**
      * ScheduleCreator constructor.
      *
@@ -36,13 +33,26 @@ class BaseLogic
     }
 
     /**
-     * @param Request $request
-     *
-     * @return $this
+     * @param string $message
      */
-    public function setRequest(Request $request)
+    protected function response(string $message)
     {
-        $this->request = $request;
-        return $this;
+        $slack = $this->container->get('slack');
+        $slack->send($message);
+    }
+
+    /**
+     * @return string
+     */
+    protected function makeMentionName()
+    {
+        return '@' . $this->getSlackUserName();
+    }
+
+    protected function getSlackUserName()
+    {
+        $request = $this->container->get('request');
+        return $request->get('user_name');
+
     }
 }

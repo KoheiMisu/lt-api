@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services\ScheduleLogic;
 
+use Carbon\Carbon;
 use JMS\DiExtraBundle\Annotation as DI;
 use AppBundle\Services\Support\LogicExecute;
 
@@ -9,12 +10,24 @@ use AppBundle\Services\Support\LogicExecute;
  * 忙しくてlt自体を次の人にパスする場合
  * または、飛び込みでやって自分の発表を一周ずらす場合
  *
- * @DI\Service("schedule_postpone_skip")
+ * @DI\Service("schedule_skip_logic")
  */
 class Skip extends BaseLogic implements LogicExecute
 {
     public function execute()
     {
+        $skipPresenter = $this->em->getRepository('AppBundle:Presenter')->findOneByName($this->getSlackUserName());
+        $targetSchedule = $this->em->getRepository('AppBundle:Schedule')->findLatestByPresenter($skipPresenter);
 
+        /** スケジュールの削除 */
+        $this->em->remove($targetSchedule);
+        $this->em->flush();
+
+        /** 発表者を発表したとして発表日を更新 */
+        $skipPresenter->setLastPublishDate(Carbon::now());
+        $this->em->persist($skipPresenter);
+        $this->em->flush();
+
+        $this->response($this->makeMentionName() . ' LTを次の人に回るようにしました。');
     }
 }

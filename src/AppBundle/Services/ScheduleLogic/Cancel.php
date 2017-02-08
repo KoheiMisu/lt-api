@@ -20,11 +20,13 @@ class Cancel extends BaseLogic implements LogicExecute
      */
     public function execute()
     {
-        $cancelPresenter = $this->em->getRepository('AppBundle:Presenter')->findOneByName($this->request->get('user_name'));
+        $cancelPresenter = $this->em->getRepository('AppBundle:Presenter')->findOneByName($this->getSlackUserName());
         $targetSchedule = $this->em->getRepository('AppBundle:Schedule')->findLatestByPresenter($cancelPresenter);
 
         $targetSchedule->setStatus(0);
         $this->em->persist($targetSchedule);
         $this->em->flush();
+
+        $this->response($this->makeMentionName() . ' 今週のLTをキャンセルしました。');
     }
 }

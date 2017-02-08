@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Presenter;
+use AppBundle\Entity\Schedule;
 use Carbon\Carbon;
 
 /**
@@ -32,17 +33,18 @@ class ScheduleRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @param Presenter $presenter
      *
-     * @return array
+     * @return Schedule
      */
     public function findLatestByPresenter(Presenter $presenter)
     {
         $qb = $this
             ->createQueryBuilder('s')
+            ->setMaxResults(1)
             ->where('s.presenter = :presenter')
             ->orderBy("s.publishDate", 'DESC')
             ->setParameter('presenter', $presenter)
             ->getQuery();
 
-        return $qb->getSingleResult();
+        return $qb->getOneOrNullResult();
     }
 }

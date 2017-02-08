@@ -23,5 +23,7 @@ class Postpone  extends BaseLogic implements LogicExecute
             $this->em->persist($schedule);
             $this->em->flush();
         }
+
+        $this->response('@here 今週のLTスケジュールを次週に延期しました。');
     }
 }

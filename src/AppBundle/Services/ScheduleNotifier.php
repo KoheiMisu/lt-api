@@ -44,13 +44,13 @@ class ScheduleNotifier
     {
         $presenterNames = [];
         foreach ($schedules as $schedule) {
-            $presenterNames[] = $schedule->getPresenter()->getName() . 'さん';
+            $presenterNames[] = $schedule->getPresenter()->getName() . ' さん';
         }
 
         $presenterNames = implode(', ', $presenterNames);
 
         $message = <<<EOF
-今週もお疲れ様でした。
+@here 今週もお疲れ様でした。
 来週の発表者は、{$presenterNames} です。
 EOF;
         return $message;
