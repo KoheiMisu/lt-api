@@ -22,7 +22,8 @@ class PresenterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Presenter'
+            'data_class' => 'AppBundle\Entity\Presenter',
+            'allow_extra_fields' => true,
         ));
     }
 
@@ -33,6 +34,4 @@ class PresenterType extends AbstractType
     {
         return 'appbundle_presenter';
     }
-
-
 }

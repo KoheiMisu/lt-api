@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Presenter
  *
  * @ORM\Table(name="presenter")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PresenterRepository")
+ * @UniqueEntity(fields="name", message="Sorry, this name is already in use.")
  * @ORM\HasLifecycleCallbacks()
  */
 class Presenter

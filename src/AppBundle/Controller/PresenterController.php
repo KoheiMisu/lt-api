@@ -10,8 +10,9 @@ use AppBundle\Form\PostType;
 use AppBundle\Form\PresenterType;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Controller\Support\SlackWebhookTokenAuthenticated;
 
-class PresenterController extends BaseRestController implements ClassResourceInterface
+class PresenterController extends BaseRestController implements SlackWebhookTokenAuthenticated
 {
     /**
      * @return array
