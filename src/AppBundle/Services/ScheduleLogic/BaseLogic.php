@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services\ScheduleLogic;
 
+use AppBundle\Entity\Schedule;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -53,6 +54,5 @@ class BaseLogic
     {
         $request = $this->container->get('request');
         return $request->get('user_name');
-
     }
 }
